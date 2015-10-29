@@ -1,4 +1,4 @@
-# upickleproblem
+# upickle issue
 
 This project demonstrates strange problem with upickle marcos.
 Class names are changed (anonimized)
@@ -16,8 +16,9 @@ dev/upikle2/src/main/scala/sample/CR.scala:10: ambiguous implicit values:
 [error] one error found
 [error] (compile:compileIncremental) Compilation failed
 ```
+# workaround  - strange behaviour
 
-If this class 
+If in this  case class I remove map 
 ```
 case class CR(price: PI, products : Map[String, PR] ) {
   def toJSValue(): upickle.Js.Value = {
@@ -25,7 +26,7 @@ case class CR(price: PI, products : Map[String, PR] ) {
   }
 }
 ```
-is changed to:
+An then it looks like below:
 ```
 case class CR(price: PI ) {
   def toJSValue(): upickle.Js.Value = {
@@ -33,9 +34,11 @@ case class CR(price: PI ) {
   }
 }
 ```
-Code compiles without Problems.
+Code compiles without problems.
 
-Same if PR trait and classes are moved to the same file where CR
+#workaround 2
+
+If PR trait and classes are moved to the same file where CR
 
 ```
 sealed trait PR {
@@ -51,3 +54,5 @@ case class CR(price: PI, products : Map[String, PR] ) {
   }
 }
 ```
+
+code also compiles without problems.
